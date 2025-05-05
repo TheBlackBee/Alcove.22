@@ -21,37 +21,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <meta <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#4A90E2"/>
+    <title>Alcove App</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+    <div id="root">
+      <nav>
+        <button onclick="loadView('fridge')">Fridge</button>
+        <button onclick="loadView('chores')">Chores</button>
+        <button onclick="loadView('banking')">Banking</button>
+      </nav>
+
+      <div id="user-selector">
+        <label for="userDropdown">Simulate Bracelet Scan:</label>
+        <select id="userDropdown" onchange="switchUser()">
+          <option value="0">Imara</option>
+          <option value="1">Warren</option>
+          <option value="2">Nia</option>
+        </select>
+        <button onclick="simulateBraceletScan()">Simulate Bracelet Scan</button>
+      </div>
+
+      <div id="currentUserDisplay" style="margin-top: 10px;">
+        🧕 Imara | HR: 78 bpm
+      </div>
+
+      <!-- Chores Section -->
+      <section id="chores-section">
+        <h2>Daily Chores</h2>
+        <div id="chores-list">
+          <!-- Chores will be populated here dynamically -->
+        </div>
+        <button onclick="simulateChoreCompletion()">Simulate Chore Completion</button>
+      </section>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script src="https://replit.com/public/js/replit-dev-banner.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(() => console.log('SW registered'))
+          .catch(err => console.error(err));
+      }
+    </script>
   </body>
-  <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log('SW registered'))
-      .catch(err => console.error(err));
-  }
-    <nav>
-  <button onclick="loadView('fridge')">Fridge</button>
-  <button onclick="loadView('chores')">Chores</button>
-  <button onclick="loadView('banking')">Banking</button>
-</nav>
-    <div id="user-selector">
-  <label for="userDropdown">Simulate Bracelet Scan:</label>
-  <select id="userDropdown" onchange="switchUser()">
-    <option value="0">Imara</option>
-    <option value="1">Warren</option>
-    <option value="2">Nia</option>
-  </select>
-    <button onclick="simulateBraceletScan()">Simulate Bracelet Scan</button>
-</div>
-    <div id="currentUserDisplay" style="margin-top: 10px;">
-  🧕 Imara | HR: 78 bpm
-</div>
-</script>
 </html>
