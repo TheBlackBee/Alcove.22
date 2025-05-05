@@ -21,7 +21,10 @@ function generateGroceryList() {
     `<p>${i.item} - low stock</p>`
   ).join('');
 }
-
+function takeFromFridge(itemName) {
+  console.log(`${currentUser.name} removed ${itemName} from the fridge.`);
+  // add this action to history or analytics
+}
 function suggestRecipes() {
   const container = document.getElementById('recipe-suggestions');
   const availableItems = fridgeInventory.map(i => i.item.toLowerCase());
@@ -55,9 +58,17 @@ function updateFridgeDashboard() {
   suggestRecipes();
   showUserAnalytics();
 }
+
+function simulateBraceletScan() {
+  const randomIndex = Math.floor(Math.random() * users.length);
+  document.getElementById('userDropdown').value = randomIndex;
+  switchUser();
+}
+
 function interactWithFridge(braceletId) {
   const userName = simulateBraceletScan(braceletId);
   if (!userName) return;
+  
 
   // Simulate taking out an item
   const item = prompt(`Hi ${userName}, what item are you taking out?`);
