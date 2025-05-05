@@ -25,6 +25,16 @@ function generateGroceryList() {
     `<p>${i.item} - low stock</p>`
   ).join('');
 }
+// Simulate scanning a bracelet and returning the user
+function simulateBraceletScan(braceletId) {
+  const user = users.find(u => u.braceletId === braceletId);
+  if (!user) {
+    alert("Unknown bracelet. Access denied.");
+    return null;
+  }
+  alert(`Bracelet detected: Welcome ${user.name}`);
+  return user.name;
+}
 
 function suggestRecipes() {
   const container = document.getElementById('recipe-suggestions');
