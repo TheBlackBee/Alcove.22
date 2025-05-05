@@ -55,6 +55,28 @@ function updateFridgeDashboard() {
   suggestRecipes();
   showUserAnalytics();
 }
+function interactWithFridge(braceletId) {
+  const userName = simulateBraceletScan(braceletId);
+  if (!userName) return;
+
+  // Simulate taking out an item
+  const item = prompt(`Hi ${userName}, what item are you taking out?`);
+  const target = fridgeInventory.find(i => i.item.toLowerCase() === item.toLowerCase());
+
+  if (target) {
+    if (target.quantity > 0) {
+      target.quantity--;
+      target.takenBy = userName;
+      alert(`${userName} took 1 ${target.item}`);
+    } else {
+      alert(`${target.item} is out of stock!`);
+    }
+  } else {
+    alert(`${item} is not in the fridge.`);
+  }
+
+  updateFridgeDashboard();
+}
 
 // Initialize
 document.addEventListener('DOMContentLoaded', updateFridgeDashboard);
