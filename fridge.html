@@ -1,8 +1,34 @@
-<!-- kitchen/fridge.html -->
-<div id="fridge-dashboard">
-  <h2>Smart Fridge Dashboard</h2>
-  <div id="fridge-contents"></div>
-  <div id="grocery-list"></div>
-  <div id="recipe-suggestions"></div>
-  <div id="user-analytics"></div>
+<div id="kitchen-ui" class="kitchen-container">
+  <h2>Alcove Kitchen Dashboard</h2>
+
+  <!-- Fridge Inventory -->
+  <section id="fridge-inventory">
+    <h3>Fridge Inventory</h3>
+    <ul id="inventory-list"></ul>
+  </section>
+
+  <!-- User Interaction -->
+  <section id="user-interaction">
+    <h3>Simulate Bracelet Use</h3>
+    <button onclick="interactWithFridge('ABC123')">Imara uses fridge</button>
+    <button onclick="interactWithFridge('XYZ789')">Warren uses fridge</button>
+  </section>
+
+  <!-- Expiry Alerts -->
+  <section id="expiry-alerts">
+    <h3>Expiring Soon</h3>
+    <ul id="expiry-list"></ul>
+  </section>
+
+  <!-- Recipes -->
+  <section id="recipe-suggestions">
+    <h3>Suggested Recipes</h3>
+    <ul id="recipe-list"></ul>
+  </section>
+
+  <!-- Analytics -->
+  <section id="kitchen-analytics">
+    <h3>Analytics</h3>
+    <ul id="analytics-list"></ul>
+  </section>
 </div>
