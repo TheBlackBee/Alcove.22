@@ -1,6 +1,10 @@
 // kitchen/fridge.js
 
 // Simulated sensor data
+const users = [
+  { name: "Imara", braceletId: "ABC123" },
+  { name: "Warren", braceletId: "XYZ789" }
+];
 const fridgeInventory = [
   { item: 'Milk', quantity: 1, expiry: '2025-05-01', takenBy: 'Imara' },
   { item: 'Eggs', quantity: 6, expiry: '2025-04-30', takenBy: null },
