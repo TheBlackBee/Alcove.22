@@ -884,6 +884,38 @@ button:hover {
   margin-left: 0.5rem;
 }
 
+.kitchen-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+  max-width: 800px;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.kitchen-container section {
+  margin-top: 20px;
+  padding: 15px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.kitchen-container h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+button {
+  margin-right: 10px;
+  padding: 10px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 /* Tablet optimizations */
 @media (min-width: 769px) and (max-width: 1024px) {
   .container {
