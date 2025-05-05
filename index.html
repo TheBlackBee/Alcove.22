@@ -41,5 +41,13 @@
   <button onclick="loadView('chores')">Chores</button>
   <button onclick="loadView('banking')">Banking</button>
 </nav>
+    <div id="user-selector">
+  <label for="userDropdown">Simulate Bracelet Scan:</label>
+  <select id="userDropdown" onchange="switchUser()">
+    <option value="0">Imara</option>
+    <option value="1">Warren</option>
+    <option value="2">Nia</option>
+  </select>
+</div>
 </script>
 </html>
