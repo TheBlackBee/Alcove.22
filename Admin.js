@@ -35,7 +35,19 @@ function renderPendingReviews() {
     pendingList.appendChild(div);
   });
 }
+function submitChoreProof(userId, choreId, proofURL) {
+  const chore = chores.find(c => c.id === choreId);
+  pendingSubmissions.push({
+    userId,
+    user: users[userId].name,
+    choreId,
+    choreName: chore.name,
+    proofURL,
+    points: chore.points
+  });
 
+  alert("Submission pending admin review.");
+}
 window.approveChore = function(index) {
   const chores = JSON.parse(localStorage.getItem("pendingChores")) || [];
   const approved = chores.splice(index, 1)[0];
