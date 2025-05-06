@@ -31,6 +31,65 @@ window.approveChore = function(index) {
   location.reload();
 };
 
+const mockSubmissions = [
+  {
+    id: 1,
+    user: "Imara",
+    chore: "Sweep Floor",
+    proof: "assets/submissions/sweep_imara.mp4",
+    status: "pending"
+  },
+  {
+    id: 2,
+    user: "Warren",
+    chore: "Wash Dishes",
+    proof: "assets/submissions/dishes_warren.jpg",
+    status: "pending"
+  }
+];
+
+function loadSubmissions() {
+  const container = document.getElementById("submissions-list");
+  container.innerHTML = "";
+
+  mockSubmissions.forEach((submission) => {
+    const card = document.createElement("div");
+    card.className = "submission-card";
+
+    let media;
+    if (submission.proof.endsWith(".mp4")) {
+      media = `<video controls width="320"><source src="${submission.proof}" type="video/mp4"></video>`;
+    } else {
+      media = `<img src="${submission.proof}" width="320" />`;
+    }
+
+    card.innerHTML = `
+      <h3>${submission.user} – ${submission.chore}</h3>
+      ${media}
+      <button onclick="approveChore(${submission.id})">Approve</button>
+      <button onclick="rejectChore(${submission.id})">Reject</button>
+      <button onclick="deductPoints(${submission.id})">Deduct Points</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function approveChore(id) {
+  alert(`Chore ${id} approved and points awarded.`);
+  // Logic for updating user points
+}
+
+function rejectChore(id) {
+  alert(`Chore ${id} rejected.`);
+}
+
+function deductPoints(id) {
+  alert(`Points deducted for chore ${id}.`);
+}
+
+document.addEventListener("DOMContentLoaded", loadSubmissions);
+
 window.rejectChore = function(index) {
   const chores = JSON.parse(localStorage.getItem("pendingChores")) || [];
   const rejected = chores.splice(index, 1)[0];
