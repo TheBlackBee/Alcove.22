@@ -18,6 +18,51 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(card);
   });
 });
+function approveChore(index) {
+  const submission = pendingSubmissions[index];
+  users[submission.userId].points += submission.points;
+  users[submission.userId].notifications.push({
+    message: `Your submission for "${submission.choreName}" has been approved. You earned ${submission.points} points.`,
+    timestamp: new Date()
+  });
+  alert(`Approved. ${submission.points} points awarded.`);
+  pendingSubmissions.splice(index, 1);
+  renderPendingReviews();
+}
+
+function rejectChore(index) {
+  const submission = pendingSubmissions[index];
+  users[submission.userId].notifications.push({
+    message: `Your submission for "${submission.choreName}" has been rejected. No points awarded.`,
+    timestamp: new Date()
+  });
+  alert("Rejected. No points awarded.");
+  pendingSubmissions.splice(index, 1);
+  renderPendingReviews();
+}
+function renderNotifications(userId) {
+  const notificationList = document.getElementById("notificationList");
+  notificationList.innerHTML = "";
+  users[userId].notifications.forEach((notification) => {
+    const li = document.createElement("li");
+    li.textContent = `${notification.message} (${notification.timestamp.toLocaleString()})`;
+    notificationList.appendChild(li);
+  });
+}
+
+function partialApprove(index) {
+  const submission = pendingSubmissions[index];
+  const deduction = prompt("Enter how many points to deduct:");
+  const awarded = Math.max(0, submission.points - Number(deduction));
+  users[submission.userId].points += awarded;
+  users[submission.userId].notifications.push({
+    message: `Your submission for "${submission.choreName}" has been partially approved. You earned ${awarded} points after a deduction of ${deduction} points.`,
+    timestamp: new Date()
+  });
+  alert(`Partially approved. ${awarded} points awarded.`);
+  pendingSubmissions.splice(index, 1);
+  renderPendingReviews();
+}
 
 function renderPendingReviews() {
   const pendingList = document.getElementById("pending-reviews-list");
