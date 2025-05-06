@@ -1,0 +1,48 @@
+<!-- views/chores.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chores</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <nav>
+    <button onclick="loadView('home')">Home</button>
+    <button onclick="loadView('fridge')">Fridge</button>
+    <button onclick="loadView('banking')">Banking</button>
+  </nav>
+
+  <main>
+    <h1>Daily Chores</h1>
+    <div id="chores-list"></div>
+
+    <h2>Trade Chores</h2>
+    <label for="tradeFrom">Your Chore:</label>
+    <select id="tradeFrom"></select>
+
+    <label for="tradeTo">Trade With:</label>
+    <select id="tradeTo"></select>
+
+    <button onclick="proposeTrade()">Propose Trade</button>
+
+    <h2>Submit Proof of Completion</h2>
+    <input type="file" id="proofUpload" accept="image/*,video/*"/>
+    <button onclick="submitProof()">Submit for Review</button>
+
+    <h2>Tutorials</h2>
+    <div id="tutorials">
+      <p>Click a chore below to watch a tutorial.</p>
+      <ul id="tutorialList"></ul>
+    </div>
+  </main>
+
+  <div id="adminReview" style="display: none;">
+    <h2>Admin Review Panel</h2>
+    <div id="reviewQueue"></div>
+  </div>
+
+  <script type="module" src="/components/chores.js"></script>
+</body>
+</html>
