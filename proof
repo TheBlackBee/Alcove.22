@@ -1,0 +1,4 @@
+/views
+  admin.html         → Interface for the admin review
+/components
+  admin.js           → Logic for reviewing chore submissions
