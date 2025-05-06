@@ -114,6 +114,12 @@ function submitChore(id) {
   alert("Submitted! Awaiting admin review.");
 }
 
+const tutorial = document.createElement("video");
+tutorial.src = "../videos/sweep-kitchen.mp4";
+tutorial.controls = true;
+document.getElementById("tutorialContainer").appendChild(tutorial);
+
+
 function tradeChore(id) {
   const newUser = prompt("Enter the name of the person you want to trade with:");
   if (users.includes(newUser)) {
