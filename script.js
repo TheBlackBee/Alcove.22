@@ -95,6 +95,20 @@ const MARKET_STATUSES = [
   { status: "bearish", trendMin: -0.15, trendMax: -0.05 }
 ];
 
+const users = {
+  userId1: {
+    name: "Imara",
+    points: 50,
+    notifications: []
+  },
+  userId2: {
+    name: "Warren",
+    points: 40,
+    notifications: []
+  }
+  // Add other users similarly
+};
+
 // Initialize app data from localStorage or with defaults
 let appData = JSON.parse(localStorage.getItem('homeManagementApp')) || {
   users: {},
