@@ -117,6 +117,23 @@ let appData = JSON.parse(localStorage.getItem('homeManagementApp')) || {
 // Current selected user
 let currentUser = null;
 
+function renderPendingReviews() {
+  const pendingList = document.getElementById("pending-reviews-list");
+  pendingList.innerHTML = "";
+
+  pendingSubmissions.forEach((submission, index) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <p><strong>${submission.user}</strong> - ${submission.choreName}</p>
+      <video width="200" controls src="${submission.proofURL}"></video><br/>
+      <button onclick="approveChore(${index})">Approve</button>
+      <button onclick="rejectChore(${index})">Reject</button>
+      <button onclick="partialApprove(${index})">Deduct Points</button>
+    `;
+    pendingList.appendChild(div);
+  });
+}
+
 // Function to update localStorage with current app data
 function saveData() {
   localStorage.setItem('homeManagementApp', JSON.stringify(appData));
