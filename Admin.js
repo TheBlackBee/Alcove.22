@@ -19,6 +19,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+function renderPendingReviews() {
+  const pendingList = document.getElementById("pending-reviews-list");
+  pendingList.innerHTML = "";
+
+  pendingSubmissions.forEach((submission, index) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <p><strong>${submission.user}</strong> - ${submission.choreName}</p>
+      <video width="200" controls src="${submission.proofURL}"></video><br/>
+      <button onclick="approveChore(${index})">Approve</button>
+      <button onclick="rejectChore(${index})">Reject</button>
+      <button onclick="partialApprove(${index})">Deduct Points</button>
+    `;
+    pendingList.appendChild(div);
+  });
+}
+
 window.approveChore = function(index) {
   const chores = JSON.parse(localStorage.getItem("pendingChores")) || [];
   const approved = chores.splice(index, 1)[0];
