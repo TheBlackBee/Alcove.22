@@ -64,6 +64,18 @@
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* style.css */
+#chores-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#chores-list video {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
 /* Purple Theme */
 [data-theme="purple"] {
   --primary-color: #9C27B0;
