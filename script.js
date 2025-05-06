@@ -126,6 +126,55 @@ const users = {
   // Add other users similarly
 };
 
+// datastore.js
+import { getFirestore, collection, addDoc, onSnapshot, updateDoc, doc } from 
+  "https://www.gstatic.com/firebasejs/10.6.1/firebase-firestore.js";
+
+const db = getFirestore(app);
+
+// Expose methods for chores and users:
+export async function submitChoreForReview(choreId, proofURL, points) {
+  await addDoc(collection(db, "choreSubmissions"), {
+    choreId,
+    userId: currentUserId,
+    proofURL,
+    points,
+    status: "pending",
+    timestamp: Date.now()
+  });
+}
+
+export function subscribeToSubmissions(callback) {
+  return onSnapshot(collection(db, "choreSubmissions"), snapshot => {
+    const subs = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    callback(subs);
+  });
+}
+
+export function reviewSubmission(id, status, deduction = 0) {
+  const ref = doc(db, "choreSubmissions", id);
+  return updateDoc(ref, { status, deduction });
+}
+// storage.js
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 
+  "https://www.gstatic.com/firebasejs/10.6.1/firebase-storage.js";
+
+const storage = getStorage(app);
+
+export async function uploadProofFile(file) {
+  const path = `proofs/${currentUserId}/${Date.now()}_${file.name}`;
+  const ref = storageRef(storage, path);
+  await uploadBytes(ref, file);
+  return getDownloadURL(ref);
+}
+// Leaderboard
+export function subscribeToUsers(callback) {
+  return onSnapshot(collection(db, "users"), snapshot => {
+    const users = snapshot.docs.map(d => d.data());
+    callback(users);
+  });
+}
+
 function renderLeaderboard() {
   const leaderboardList = document.getElementById("leaderboardList");
   leaderboardList.innerHTML = "";
