@@ -51,7 +51,34 @@ function markChoreComplete(choreId) {
     alert("Upload proof before submitting.");
   }
 }
+const choreTutorials = {
+  "Sweep Floor": "assets/tutorials/sweep.mp4",
+  "Wash Dishes": "assets/tutorials/dishes.mp4",
+  "Mop Kitchen": "assets/tutorials/mop.mp4",
+  "Tidy Bedroom": "assets/tutorials/tidy_bedroom.mp4"
+};
 
+function loadTutorials() {
+  const container = document.getElementById("tutorial-videos");
+  container.innerHTML = "";
+
+  Object.entries(choreTutorials).forEach(([chore, url]) => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "tutorial-wrapper";
+
+    wrapper.innerHTML = `
+      <h4>${chore}</h4>
+      <video width="320" height="240" controls>
+        <source src="${url}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    `;
+
+    container.appendChild(wrapper);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadTutorials);
 function requestChoreTrade(choreId) {
   const newAssignee = prompt("Enter the name of the person you'd like to trade with:");
   const chore = chores.find(c => c.id === choreId);
