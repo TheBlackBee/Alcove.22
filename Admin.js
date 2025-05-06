@@ -30,6 +30,43 @@ function approveChore(index) {
   renderPendingReviews();
 }
 
+import { collection, onSnapshot, updateDoc, doc } from 
+  "https://www.gstatic.com/firebasejs/10.6.1/firebase-firestore.js";
+import { db } from "../index.html";
+
+const submissionsCol = collection(db, "choreSubmissions");
+
+// Real‑time listener
+onSnapshot(submissionsCol, snapshot => {
+  const list = document.getElementById("pending-reviews-list");
+  list.innerHTML = "";
+  snapshot.docs.forEach(docSnap => {
+    const sub = docSnap.data();
+    if (sub.status === "pending") {
+      const card = document.createElement("div");
+      card.innerHTML = `
+        <p>${sub.userId} – Chore ${sub.choreId}</p>
+        <video controls src="${sub.proofURL}" width="200"></video><br/>
+        <button onclick="review('${docSnap.id}', 'approved')">Approve</button>
+        <button onclick="review('${docSnap.id}', 'rejected')">Reject</button>
+        <button onclick="review('${docSnap.id}', 'partial')">Deduct Points</button>
+      `;
+      list.appendChild(card);
+    }
+  });
+});
+
+window.review = async function(docId, action) {
+  const subRef = doc(db, "choreSubmissions", docId);
+  let updates = { status: action };
+  if (action === "partial") {
+    const deduct = Number(prompt("Points to deduct?"));
+    updates.deduction = deduct;
+  }
+  await updateDoc(subRef, updates);
+  alert(`Submission ${action}.`);
+};
+
 function rejectChore(index) {
   const submission = pendingSubmissions[index];
   users[submission.userId].notifications.push({
