@@ -6,6 +6,38 @@ let chores = [
   { id: 3, task: "Sweep hallway", assignedTo: "Nia", completed: false, reviewed: false, points: 7, proof: null },
 ];
 
+import { collection, addDoc, onSnapshot, updateDoc, doc } from 
+  "https://www.gstatic.com/firebasejs/10.6.1/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from 
+  "https://www.gstatic.com/firebasejs/10.6.1/firebase-storage.js";
+import { auth, db, storage } from "../index.html"; // from global
+
+// Listen for auth (anonymous)
+signInAnonymously(auth);
+
+let currentUserId = null;
+onAuthStateChanged(auth, user => {
+  currentUserId = user.uid;
+});
+
+// When user submits proof:
+async function submitChoreProof(choreId, file) {
+  // 1) Upload file to Storage
+  const fileRef = storageRef(storage, `proofs/${currentUserId}/${Date.now()}_${file.name}`);
+  await uploadBytes(fileRef, file);
+  const url = await getDownloadURL(fileRef);
+
+  // 2) Create a Firestore document for review
+  await addDoc(collection(db, "choreSubmissions"), {
+    choreId,
+    userId: currentUserId,
+    proofURL: url,
+    status: "pending",
+    timestamp: Date.now()
+  });
+  alert("Proof submitted—awaiting admin review.");
+}
+
 function switchUser() {
   const dropdown = document.getElementById("userDropdown");
   currentUser = dropdown.options[dropdown.selectedIndex].text;
