@@ -187,6 +187,12 @@ function updateUserDropdown() {
   }
 }
 
+function submitChoreForReview(user, choreName, proofURL, points) {
+  const pending = JSON.parse(localStorage.getItem("pendingChores")) || [];
+  pending.push({ user, name: choreName, proof: proofURL, points });
+  localStorage.setItem("pendingChores", JSON.stringify(pending));
+}
+
 // Function to update chore select dropdown
 function updateChoreDropdown() {
   const choreSelect = document.getElementById('chore-select');
