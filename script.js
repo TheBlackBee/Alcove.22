@@ -109,6 +109,22 @@ const users = {
   // Add other users similarly
 };
 
+function renderLeaderboard() {
+  const leaderboardList = document.getElementById("leaderboardList");
+  leaderboardList.innerHTML = "";
+
+  // Convert users object to an array and sort by points descending
+  const sortedUsers = Object.entries(users)
+    .map(([id, user]) => ({ id, ...user }))
+    .sort((a, b) => b.points - a.points);
+
+  sortedUsers.forEach((user, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${user.name} - ${user.points} points`;
+    leaderboardList.appendChild(li);
+  });
+}
+
 // Initialize app data from localStorage or with defaults
 let appData = JSON.parse(localStorage.getItem('homeManagementApp')) || {
   users: {},
