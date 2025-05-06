@@ -8,4 +8,14 @@ const users = [
   <h3>Notifications</h3>
   <ul id="notificationList"></ul>
 </div>
+
+// Listening to user point changes
+onSnapshot(collection(db, "users"), snap => {
+  const lb = document.getElementById("leaderboardList");
+  lb.innerHTML = "";
+  snap.docs
+    .map(d => d.data())
+    .sort((a,b)=>b.points - a.points)
+    .forEach(u => lb.innerHTML += `<li>${u.name}: ${u.points}</li>`);
+});
 let currentUser = users[0]; // default active user
