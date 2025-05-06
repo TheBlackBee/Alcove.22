@@ -70,7 +70,30 @@ function submitProof() {
     proof: proofURL,
     status: "pending"
   };
+import { submitChoreForReview, subscribeToSubmissions, reviewSubmission } from "../datastore.js";
+import { uploadProofFile } from "../storage.js";
+import { auth, currentUserId } from "../index.js";
 
+// When user clicks “Submit Proof”
+async function submitProof(choreId, fileInput) {
+  const file = fileInput.files[0];
+  if (!file) return alert("Select a file first.");
+  const url = await uploadProofFile(file);
+  await submitChoreForReview(choreId, url, getChorePoints(choreId));
+  alert("Submitted for review!");
+}
+
+// Admin real‑time view
+subscribeToSubmissions(subs => {
+  const pending = subs.filter(s => s.status === "pending");
+  renderAdminQueue(pending);
+});
+
+// Approve / reject buttons call:
+async function handleReview(subId, action) {
+  const ded = action === "partial" ? Number(prompt("Deduct how many points?")) : 0;
+  await reviewSubmission(subId, action, ded);
+}
   const chores = [
   {
     id: 1,
