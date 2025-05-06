@@ -799,6 +799,26 @@ function initApp() {
     updateBankAccount(username);
     updateRewards();
   });
+
+// script.js
+
+import './components/chores.js';
+
+function loadView(view) {
+  document.querySelectorAll("section").forEach(s => s.style.display = "none");
+  document.getElementById(`${view}-section`).style.display = "block";
+
+  if (view === "chores") renderChores();
+}
+
+function switchUser() {
+  currentUser = document.getElementById("userDropdown").value;
+  document.getElementById("currentUserDisplay").textContent = `🧕 ${users[currentUser]}`;
+}
+
+window.loadView = loadView;
+window.switchUser = switchUser;
+
   
   // Populate chore log from all users' chore history
   const allChores = [];
