@@ -86,6 +86,23 @@ const DEFAULT_STOCKS = [
     volatility: 0.08 // 8% price fluctuation (very stable)
   }
 ];
+// index.js (or wherever you initialized Firebase)
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-auth.js";
+
+const auth = getAuth(app);
+
+// Sign in anonymously on load
+signInAnonymously(auth)
+  .catch(err => console.error("Auth error:", err));
+
+// Track current user ID
+let currentUserId = null;
+onAuthStateChanged(auth, user => {
+  if (user) currentUserId = user.uid;
+  else console.error("User signed out");
+});
+
+export { auth, currentUserId };
 
 // Market status options
 const MARKET_STATUSES = [
