@@ -76,6 +76,55 @@ function simulateAdminReview() {
   renderChores();
 }
 
+// components/chores.js
+
+const chores = [
+  { id: 1, name: "Sweep Kitchen", points: 10, video: "videos/sweep-kitchen.mp4" },
+  { id: 2, name: "Clean Bathroom", points: 15, video: "videos/clean-bathroom.mp4" },
+];
+
+let currentUser = 0;
+const users = ["Imara", "Warren", "Nia"];
+let submittedChores = [];
+
+function renderChores() {
+  const list = document.getElementById("chores-list");
+  list.innerHTML = "";
+  chores.forEach(chore => {
+    const choreEl = document.createElement("div");
+    choreEl.innerHTML = `
+      <h3>${chore.name}</h3>
+      <video width="200" controls src="${chore.video}"></video><br/>
+      <input type="file" accept="image/*,video/*" id="proof-${chore.id}" />
+      <button onclick="submitChore(${chore.id})">Submit for Review</button>
+      <button onclick="tradeChore(${chore.id})">Trade Chore</button>
+    `;
+    list.appendChild(choreEl);
+  });
+}
+
+function submitChore(id) {
+  const fileInput = document.getElementById(`proof-${id}`);
+  const file = fileInput.files[0];
+  if (!file) {
+    alert("Please attach proof.");
+    return;
+  }
+  submittedChores.push({ choreId: id, userId: currentUser, file });
+  alert("Submitted! Awaiting admin review.");
+}
+
+function tradeChore(id) {
+  const newUser = prompt("Enter the name of the person you want to trade with:");
+  if (users.includes(newUser)) {
+    alert(`Chore ${id} sent to ${newUser}. Awaiting confirmation.`);
+  } else {
+    alert("User not found.");
+  }
+}
+
+window.renderChores = renderChores;
+
 document.addEventListener("DOMContentLoaded", () => {
   renderChores();
 });
