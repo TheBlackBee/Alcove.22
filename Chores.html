@@ -30,7 +30,12 @@
     <h2>Submit Proof of Completion</h2>
     <input type="file" id="proofUpload" accept="image/*,video/*"/>
     <button onclick="submitProof()">Submit for Review</button>
-
+<!-- Add this inside the #chores-section or chore modal -->
+<div id="proof-submission" style="display: none;">
+  <h3>Upload Proof of Completion</h3>
+  <input type="file" id="proofFile" accept="image/*,video/*" />
+  <button onclick="submitProof()">Submit Proof</button>
+</div>
     <h2>Tutorials</h2>
     <div id="tutorials">
       <p>Click a chore below to watch a tutorial.</p>
