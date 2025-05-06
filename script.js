@@ -145,7 +145,23 @@ function showTab(tabId) {
     }
   });
 }
+function simulateChoreCompletion() {
+  const user = getCurrentUser(); // however you're tracking this
+  const choreName = "Sweep Floor"; // Replace with selected chore
+  const fileInput = document.getElementById("proofInput");
+  const file = fileInput.files[0];
 
+  if (!file) {
+    alert("Please upload proof (photo or video).");
+    return;
+  }
+
+  const proofURL = URL.createObjectURL(file);
+  const points = 10; // Adjust per chore
+
+  submitChoreForReview(user, choreName, proofURL, points);
+  alert("Chore submitted for review!");
+}
 // Function to toggle modal visibility
 function toggleModal(modalId, show = true) {
   const modal = document.getElementById(modalId);
