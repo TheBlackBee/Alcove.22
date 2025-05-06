@@ -1,0 +1,16 @@
+/alcove-app
+│
+├── index.html
+├── style.css
+├── script.js
+│
+├── /components
+│   ├── chores.js
+│
+├── /views
+│   ├── chores.html
+│
+├── /videos         <-- Add this folder
+│   ├── sweep-kitchen.mp4
+│   ├── clean-bathroom.mp4
+│   └── dust-shelves.mp4
