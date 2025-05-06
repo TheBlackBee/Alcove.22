@@ -39,6 +39,21 @@ function submitProof() {
     status: "pending"
   };
 
+  const chores = [
+  {
+    id: 1,
+    name: "Do the Dishes",
+    points: 10,
+    tutorial: "tutorials/dishes.mp4"
+  },
+  {
+    id: 2,
+    name: "Vacuum the Living Room",
+    points: 15,
+    tutorial: "tutorials/vacuuming.mp4"
+  }
+];
+
   // For real app: send this to backend
   console.log("Submitted Proof:", submission);
 
