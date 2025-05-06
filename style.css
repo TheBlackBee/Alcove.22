@@ -150,7 +150,15 @@ nav {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
+#tutorial-videos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 
+.tutorial-wrapper {
+  flex: 1 1 300px;
+}
 .card {
   background: var(--card-bg);
   padding: 1.5rem;
