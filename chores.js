@@ -12,6 +12,40 @@ function switchUser() {
   document.getElementById("currentUserDisplay").textContent = `🧕 ${currentUser}`;
   renderChores();
 }
+let currentChoreId = null;
+
+function simulateChoreCompletion(choreId) {
+  currentChoreId = choreId;
+  document.getElementById("proof-submission").style.display = "block";
+}
+function submitProof() {
+  const fileInput = document.getElementById("proofFile");
+  const file = fileInput.files[0];
+  
+  if (!file) {
+    alert("Please select a file.");
+    return;
+  }
+
+  // Simulate upload
+  const proofURL = URL.createObjectURL(file);
+
+  // Simulate adding to admin review list
+  const submission = {
+    id: Date.now(),
+    user: currentUser.name,
+    chore: "Chore " + currentChoreId,
+    proof: proofURL,
+    status: "pending"
+  };
+
+  // For real app: send this to backend
+  console.log("Submitted Proof:", submission);
+
+  alert("Proof submitted for review!");
+  document.getElementById("proof-submission").style.display = "none";
+  fileInput.value = "";
+}
 
 function renderChores() {
   const list = document.getElementById("chores-list");
