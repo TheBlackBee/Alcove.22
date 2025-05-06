@@ -62,6 +62,19 @@ function submitProof() {
   fileInput.value = "";
 }
 
+function simulateChoreCompletion(choreId) {
+  currentChoreId = choreId;
+  const selectedChore = chores.find(ch => ch.id === choreId);
+
+  if (selectedChore && selectedChore.tutorial) {
+    const video = document.getElementById("choreVideo");
+    video.src = selectedChore.tutorial;
+    document.getElementById("tutorial-video").style.display = "block";
+  }
+
+  document.getElementById("proof-submission").style.display = "block";
+}
+
 function renderChores() {
   const list = document.getElementById("chores-list");
   list.innerHTML = "";
