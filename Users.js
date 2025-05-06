@@ -4,4 +4,8 @@ const users = [
   { id: 'bracelet_002', name: 'Warren', avatar: '👨🏾‍🦳', vitals: { heartRate: 82, temp: 36.7 } },
   { id: 'bracelet_003', name: 'Nia', avatar: '👵🏿', vitals: { heartRate: 70, temp: 36.6 } }
 ];
+<div id="notifications">
+  <h3>Notifications</h3>
+  <ul id="notificationList"></ul>
+</div>
 let currentUser = users[0]; // default active user
